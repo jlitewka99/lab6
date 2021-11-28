@@ -9,8 +9,11 @@ public class GroupsTableModel extends AbstractTableModel {
     private String[] columnNames = new String[]{"Class name", "Students limit"};
 
 
-    private ClassContainer classContainer = new ClassContainer();
+    private ClassContainer classContainer;
 
+    public GroupsTableModel(ClassContainer classContainer) {
+        this.classContainer = classContainer;
+    }
 
     @Override
     public int getRowCount() {
@@ -22,7 +25,7 @@ public class GroupsTableModel extends AbstractTableModel {
 
     @Override
     public int getColumnCount() {
-        return columnNames.length;
+        return 2;
     }
 
     @Override
@@ -58,6 +61,7 @@ public class GroupsTableModel extends AbstractTableModel {
                 classContainer.getClassById(rowIndex).setMaksymalnaIloscStudentow(Integer.parseInt((String) aValue));
             }
         }
+        System.out.println(classContainer);
     }
 
 }

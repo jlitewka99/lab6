@@ -23,6 +23,9 @@ public class Class {
         this.maksymalnaIloscStudentow = maksymalnaIloscStudentow;
     }
 
+    public Class() {
+    }
+
     public List<Student> getListaStudentow() {
         return listaStudentow;
     }

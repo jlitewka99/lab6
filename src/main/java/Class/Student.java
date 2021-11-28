@@ -4,11 +4,11 @@ public class Student implements Comparable<Student>{
     private String imie;
     private String nazwisko;
     private StudentCondition stanStudenta;
-    private int rokUrodzenia;
+    private String rokUrodzenia;
     private double iloscPunktow;
     private String pseudonim;
 
-    public Student(String imie, String nazwisko, StudentCondition stanStudenta, int rokUrodzenia, double iloscPunktow, String pseudonim) {
+    public Student(String imie, String nazwisko, StudentCondition stanStudenta, String rokUrodzenia, double iloscPunktow, String pseudonim) {
         this.imie = imie;
         this.nazwisko = nazwisko;
         this.stanStudenta = stanStudenta;
@@ -62,7 +62,7 @@ public class Student implements Comparable<Student>{
         this.stanStudenta = stanStudenta;
     }
 
-    public void setRokUrodzenia(int rokUrodzenia) {
+    public void setRokUrodzenia(String rokUrodzenia) {
         this.rokUrodzenia = rokUrodzenia;
     }
 
@@ -86,7 +86,7 @@ public class Student implements Comparable<Student>{
         return stanStudenta;
     }
 
-    public int getRokUrodzenia() {
+    public String getRokUrodzenia() {
         return rokUrodzenia;
     }
 
@@ -97,4 +97,5 @@ public class Student implements Comparable<Student>{
     public String getPseudonim() {
         return pseudonim;
     }
+
 }

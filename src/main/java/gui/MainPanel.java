@@ -2,20 +2,26 @@ package gui;
 
 import javax.swing.*;
 import java.awt.*;
-import Class.ClassContainer;
-import Class.Student;
-import Class.StudentCondition;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
-public class MainPanel extends JFrame{
+import Class.ClassContainer;
+
+public class MainPanel extends JFrame {
     private JPanel panelMain;
-    private JButton button1;
-    private JButton button2;
+    private JButton removeGroupButton;
+    private JButton removeStudentButton;
     private JTable groupsTable;
     private JTable studentsTable;
+    private JButton addStudent;
+    private JButton addGroup;
+    private JButton sortButton;
 
-    private GroupsTableModel groupsTableModel;
 
     ClassContainer classContainer = new ClassContainer();
+    private GroupsTableModel groupsTableModel;
+    private StudentsTableModel studentsTableModel;
+
 
     public MainPanel() throws HeadlessException {
         super("Class APP");
@@ -24,75 +30,62 @@ public class MainPanel extends JFrame{
         pack();
         setVisible(true);
 
-        groupsTableModel = new GroupsTableModel();
-        infill();
-        System.out.println(groupsTableModel);
-        System.out.println(classContainer);
+
+
+
+        groupsTableModel = new GroupsTableModel(classContainer);
+        studentsTableModel = new StudentsTableModel(classContainer);
 
 
 
         groupsTable.setModel(groupsTableModel);
+        studentsTable.setModel(studentsTableModel);
 
+
+        groupsTable.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                int index = groupsTable.getSelectedRow();
+                if (groupsTableModel.getRowCount() > index && index != -1) {
+                    studentsTableModel.setClass(classContainer.getClassById(index));
+                    studentsTable.updateUI();
+                }
+            }
+        });
+
+
+        removeGroupButton.addActionListener(e -> {
+            int index = groupsTable.getSelectedRow();
+            if (groupsTableModel.getRowCount() > index && index != -1) {
+                classContainer.removeClass(classContainer.getClassById(index).getNazwaGrupy());
+                studentsTableModel.setClass();
+                groupsTable.updateUI();
+                studentsTable.updateUI();
+            }
+        });
+        addStudent.addActionListener(e -> {
+            int index = groupsTable.getSelectedRow();
+            AddStudent.getData(classContainer, index);
+            studentsTable.updateUI();
+        });
+        sortButton.addActionListener(e -> {
+            int index = groupsTable.getSelectedRow();
+
+            classContainer.getClassById(index).sortByName();
+            studentsTable.updateUI();
+
+
+        });
 
 
     }
 
     private void createUIComponents() {
         // TODO: place custom component creation code here
+        groupsTable = new JTableStudents();
+        studentsTable = new JTableStudents();
     }
 
-    private void infill(){
-        Student student1 = new Student("Pawel", "Kowalski", StudentCondition.ODRABIAJĄCY, 1999, 1.1, "Pawlo");
-        Student student6 = new Student("Pawel", "Kowalski", StudentCondition.ODRABIAJĄCY, 1999, 1.1, "Pawlo");
-        Student student2 = new Student("Pawel2", "Nowak", StudentCondition.ODRABIAJĄCY, 1999, 7.1, "Pawlo");
-        Student student3 = new Student("Aawel", "Test", StudentCondition.ODRABIAJĄCY, 1999, 3.1, "Pawlo");
-        Student student4 = new Student("Bawel", "Litewka", StudentCondition.ODRABIAJĄCY, 1999, 4.1, "Pawlo");
-        Student student5 = new Student("Bawel", "Litewka", StudentCondition.ODRABIAJĄCY, 1999, 0, "Pawlo");
-
-
-
-
-
-
-
-
-
-        classContainer.addClass("Klasa 1", 10);
-        classContainer.addClass("Klasa 2", 20);
-        classContainer.addClass("Klasa 3", 30);
-        classContainer.addClass("Klasa 4", 40);
-
-        classContainer.getClassByName("Klasa 1").addStudent(student1);
-        classContainer.getClassByName("Klasa 1").addStudent(student2);
-        classContainer.getClassByName("Klasa 1").addStudent(student2);
-        classContainer.getClassByName("Klasa 1").addStudent(student3);
-        classContainer.getClassByName("Klasa 1").addStudent(student5);
-
-
-
-
-
-
-
-        classContainer.getClassByName("Klasa 1").sortByName();
-        System.out.println("Posortowane po imieniu: " + classContainer.getClassByName("Klasa 1"));
-        classContainer.getClassByName("Klasa 1").sortByPoints();
-        System.out.println("Posortowane po punktach: " + classContainer.getClassByName("Klasa 1"));
-        classContainer.getClassByName("Klasa 2").addStudent(student4);
-        System.out.println("Lista pustych: " + classContainer.findEmpty());
-
-        classContainer.summary();
-
-        System.out.println(classContainer.getClassByName("Klasa 1").max());
-
-        System.out.println("Wyszukane 1");
-        System.out.println(classContainer.getClassByName("Klasa 2").searchPartial("wka"));
-        System.out.println("Wyszukane 2");
-        System.out.println(classContainer.getClassByName("Klasa 1").searchPartial("ski"));
-        classContainer.getClassByName("Klasa 1").removeStudentIfLowPoints(student5);
-        classContainer.getClassByName("Klasa 1").removeStudentIfLowPoints(student1);
-
-    }
 
 
 }

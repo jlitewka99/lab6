@@ -6,9 +6,12 @@ import java.util.List;
 import java.util.Map;
 
 public class ClassContainer {
-    private static Map<String, Class> mapaGrup = new HashMap<>();
-    private static List<Class> listaGrup = new ArrayList<Class>();
+    private  Map<String, Class> mapaGrup = new HashMap<>();
+    private  List<Class> listaGrup = new ArrayList<Class>();
 
+    public ClassContainer() {
+        infill();
+    }
 
     @Override
     public String toString() {
@@ -33,6 +36,7 @@ public class ClassContainer {
         Class temp = new Class(nazwa, pojemnosc);
         mapaGrup.put(nazwa, temp);
         listaGrup.add(temp);
+        System.out.println(listaGrup);
 //        System.out.println("TUUUU " + getGroupSize());
     }
 
@@ -74,5 +78,49 @@ public class ClassContainer {
         Class temp = mapaGrup.remove(oldName);
         mapaGrup.put(newName, temp);
         listaGrup.get(id).setNazwaGrupy(newName);
+    }
+
+
+    private void infill() {
+        Student student0 = new Student("ZZZ", "ZZZ", StudentCondition.ODRABIAJĄCY, "1999", 1.1, "Pawlo");
+        Student student1 = new Student("Pawel", "Kowalski", StudentCondition.ODRABIAJĄCY, "1999", 1.1, "Pawlo");
+        Student student6 = new Student("Pawel", "Kowalski", StudentCondition.ODRABIAJĄCY, "1999", 1.1, "Pawlo");
+        Student student2 = new Student("Pawel2", "Nowak", StudentCondition.ODRABIAJĄCY, "1999", 7.1, "Pawlo");
+        Student student3 = new Student("Aawel", "Test", StudentCondition.ODRABIAJĄCY, "1999", 3.1, "Pawlo");
+        Student student4 = new Student("Bawel", "Litewka", StudentCondition.ODRABIAJĄCY, "1999", 4.1, "Pawlo");
+        Student student5 = new Student("Bawel", "Litewka", StudentCondition.ODRABIAJĄCY, "1999", 0, "Pawlo");
+
+
+        addClass("Klasa 1", 10);
+        addClass("Klasa 2", 20);
+        addClass("Klasa 3", 30);
+        addClass("Klasa 4", 40);
+
+        getClassByName("Klasa 1").addStudent(student0);
+        getClassByName("Klasa 1").addStudent(student1);
+        getClassByName("Klasa 1").addStudent(student2);
+        getClassByName("Klasa 1").addStudent(student2);
+        getClassByName("Klasa 1").addStudent(student3);
+        getClassByName("Klasa 1").addStudent(student5);
+
+
+//        getClassByName("Klasa 1").sortByName();
+//        System.out.println("Posortowane po imieniu: " + getClassByName("Klasa 1"));
+//        getClassByName("Klasa 1").sortByPoints();
+//        System.out.println("Posortowane po punktach: " + getClassByName("Klasa 1"));
+        getClassByName("Klasa 2").addStudent(student4);
+        System.out.println("Lista pustych: " + findEmpty());
+
+        summary();
+
+        System.out.println(getClassByName("Klasa 1").max());
+
+        System.out.println("Wyszukane 1");
+        System.out.println(getClassByName("Klasa 2").searchPartial("wka"));
+        System.out.println("Wyszukane 2");
+        System.out.println(getClassByName("Klasa 1").searchPartial("ski"));
+        getClassByName("Klasa 1").removeStudentIfLowPoints(student5);
+        getClassByName("Klasa 1").removeStudentIfLowPoints(student1);
+
     }
 }
