@@ -8,7 +8,7 @@ import Class.Class;
 
 public class StudentsTableModel extends AbstractTableModel {
 
-    private String[] columnNames = new String[]{"Imie", "Nazwisko", "Students limit"};
+    private String[] columnNames = new String[]{"Imie", "Nazwisko", "Stan"};
 
     @Override
     public int getColumnCount() {
@@ -54,7 +54,7 @@ public class StudentsTableModel extends AbstractTableModel {
                 return aClass.getListaStudentow().get(rowIndex).getNazwisko();
             }
             case 2 -> {
-                return aClass.getListaStudentow().get(rowIndex);
+                return aClass.getListaStudentow().get(rowIndex).getStanStudenta().toString();
             }
         }
         return null;

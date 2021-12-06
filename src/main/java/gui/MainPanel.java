@@ -4,8 +4,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.List;
 
 import Class.ClassContainer;
+import Class.Student;
 
 public class MainPanel extends JFrame {
     private JPanel panelMain;
@@ -16,6 +18,7 @@ public class MainPanel extends JFrame {
     private JButton addStudent;
     private JButton addGroup;
     private JButton sortButton;
+    private JButton filterButton;
 
 
     ClassContainer classContainer = new ClassContainer();
@@ -31,11 +34,8 @@ public class MainPanel extends JFrame {
         setVisible(true);
 
 
-
-
         groupsTableModel = new GroupsTableModel(classContainer);
         studentsTableModel = new StudentsTableModel(classContainer);
-
 
 
         groupsTable.setModel(groupsTableModel);
@@ -68,6 +68,11 @@ public class MainPanel extends JFrame {
             AddStudent.getData(classContainer, index);
             studentsTable.updateUI();
         });
+        addGroup.addActionListener(e -> {
+//            int index = groupsTable.getSelectedRow();
+            AddGroup.getData(classContainer);
+            groupsTable.updateUI();
+        });
         sortButton.addActionListener(e -> {
             int index = groupsTable.getSelectedRow();
 
@@ -76,16 +81,26 @@ public class MainPanel extends JFrame {
 
 
         });
+//        filterButton.addActionListener(e -> {
+//            int index = groupsTable.getSelectedRow();
+//
+////            Class aClass
+//
+//            List<Student> list = Filter.getData(classContainer, index);
+//            studentsTableModel.setClass(list);/
+////            classContainer.getClassById(index).sortByName();
+////            studentsTable.updateUI();
+//
+//
+//        });
 
 
     }
 
     private void createUIComponents() {
-        // TODO: place custom component creation code here
         groupsTable = new JTableStudents();
         studentsTable = new JTableStudents();
     }
-
 
 
 }

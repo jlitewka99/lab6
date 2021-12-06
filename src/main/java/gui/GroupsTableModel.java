@@ -21,12 +21,12 @@ public class GroupsTableModel extends AbstractTableModel {
         if (temp == null)return 0;
         return temp;
     }
-
-
     @Override
     public int getColumnCount() {
-        return 2;
+        return columnNames.length;
     }
+
+
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
@@ -61,7 +61,7 @@ public class GroupsTableModel extends AbstractTableModel {
                 classContainer.getClassById(rowIndex).setMaksymalnaIloscStudentow(Integer.parseInt((String) aValue));
             }
         }
-        System.out.println(classContainer);
+//        System.out.println(classContainer);
     }
 
 }

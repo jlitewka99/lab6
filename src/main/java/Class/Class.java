@@ -14,6 +14,10 @@ public class Class {
         return Collections.max(listaStudentow, Comparator.comparingDouble(Student::getIloscPunktow));
     }
 
+    public Class(List<Student> listaStudentow) {
+        this.listaStudentow = listaStudentow;
+    }
+
     public int getMaksymalnaIloscStudentow() {
         return maksymalnaIloscStudentow;
     }
